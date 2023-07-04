@@ -64,6 +64,34 @@ class _CameraScreenState extends State<CameraScreen> {
               }
             },
           ),
+          const Spacer(),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 10),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                IconButton(
+                  onPressed: () {
+                    if (widget.cameras.length > 1) {
+                      setState(() {
+                        selectedCamera = selectedCamera == 0 ? 1 : 0;
+                        // switch camera
+                      });
+                    } else {
+                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                        content: Text('No secondary camera found'),
+                        duration: Duration(seconds: 2),
+                      ));
+                    }
+                  },
+                  icon: const Icon(
+                    Icons.switch_camera_rounded,
+                    color: Colors.white,
+                  ),
+                ),
+              ],
+            ),
+          )
         ],
       ),
     );
