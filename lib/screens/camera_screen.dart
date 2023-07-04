@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:camera/camera.dart';
+import 'package:camera_app/screens/gallery_screen.dart';
 import 'package:flutter/material.dart';
 
 class CameraScreen extends StatefulWidget {
@@ -70,6 +71,7 @@ class _CameraScreenState extends State<CameraScreen> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
+                // Camera switch button
                 IconButton(
                   onPressed: () {
                     if (widget.cameras.length > 1) {
@@ -89,6 +91,7 @@ class _CameraScreenState extends State<CameraScreen> {
                     color: Colors.white,
                   ),
                 ),
+                // Capture button
                 GestureDetector(
                   onTap: () async {
                     await _initializeControllerFuture; // To make sure camera is initialized
@@ -106,9 +109,34 @@ class _CameraScreenState extends State<CameraScreen> {
                     ),
                   ),
                 ),
+                // Gallery button
+                GestureDetector(
+                  onTap: () {
+                    if (capturedImages.isEmpty) return;
+                    // Return if no image
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => GalleryScreen(
+                                images: capturedImages.reversed.toList())));
+                  },
+                  child: Container(
+                    height: 60,
+                    width: 60,
+                    decoration: BoxDecoration(
+                      border: Border.all(color: Colors.white),
+                      image: capturedImages.isNotEmpty
+                          ? DecorationImage(
+                              image: FileImage(capturedImages.last),
+                              fit: BoxFit.cover)
+                          : null,
+                    ),
+                  ),
+                ),
               ],
             ),
-          )
+          ),
+          const Spacer(),
         ],
       ),
     );
