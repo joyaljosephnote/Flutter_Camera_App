@@ -12,7 +12,7 @@ Future<void> main() async {
 
 class MyApp extends StatelessWidget {
   final List<CameraDescription> cameras;
-  const MyApp({Key? key, required this.cameras}) : super(key: key);
+  const MyApp({Key? key, this.cameras = const []}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
