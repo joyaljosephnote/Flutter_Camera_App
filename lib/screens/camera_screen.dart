@@ -11,6 +11,7 @@ class CameraScreen extends StatefulWidget {
   }) : super(key: key);
 
   @override
+  // ignore: library_private_types_in_public_api
   _CameraScreenState createState() => _CameraScreenState();
 }
 
@@ -77,6 +78,7 @@ class _CameraScreenState extends State<CameraScreen> {
                     if (widget.cameras.length > 1) {
                       setState(() {
                         selectedCamera = selectedCamera == 0 ? 1 : 0;
+                        initializeCamera(selectedCamera);
                         // switch camera
                       });
                     } else {
