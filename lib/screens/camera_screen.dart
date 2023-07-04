@@ -89,6 +89,23 @@ class _CameraScreenState extends State<CameraScreen> {
                     color: Colors.white,
                   ),
                 ),
+                GestureDetector(
+                  onTap: () async {
+                    await _initializeControllerFuture; // To make sure camera is initialized
+                    var xFile = await _controller.takePicture();
+                    setState(() {
+                      capturedImages.add(File(xFile.path));
+                    });
+                  },
+                  child: Container(
+                    height: 60,
+                    width: 60,
+                    decoration: const BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
               ],
             ),
           )
