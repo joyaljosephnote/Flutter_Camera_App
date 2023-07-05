@@ -78,6 +78,7 @@ class _CameraScreenState extends State<CameraScreen> {
                     if (widget.cameras.length > 1) {
                       setState(() {
                         selectedCamera = selectedCamera == 0 ? 1 : 0;
+                        initializeCamera(selectedCamera);
                         // switch camera
                       });
                     } else {
