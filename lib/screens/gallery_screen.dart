@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:camera_app/screens/image_preview.dart';
 import 'package:flutter/material.dart';
 
 class GalleryScreen extends StatelessWidget {
@@ -11,13 +12,36 @@ class GalleryScreen extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Gallery'),
       ),
-      body: GridView.count(
-        crossAxisCount: 3,
-        mainAxisSpacing: 2,
-        crossAxisSpacing: 2,
-        children: images
-            .map((image) => Image.file(image, fit: BoxFit.cover))
-            .toList(),
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            GridView.count(
+              shrinkWrap: true,
+              crossAxisCount: 3,
+              mainAxisSpacing: 2,
+              crossAxisSpacing: 2,
+              children: [
+                for (File imageFile in images)
+                  InkWell(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => ImagePreview(
+                            imageFile: imageFile,
+                          ),
+                        ),
+                      );
+                    },
+                    child: Image.file(
+                      imageFile,
+                      fit: BoxFit.cover,
+                    ),
+                  )
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }
